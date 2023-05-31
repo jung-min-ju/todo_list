@@ -1,10 +1,11 @@
+//let number=1;
+init();
 
 function init() {
     let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
-    let number = 1;
 
     myArray.forEach(function (item) {
-        number = push_plus(number);
+        push_plus(number);
     });
 }
 
@@ -14,7 +15,7 @@ function push_plus(number) {
 
     const tr = document.createElement('tr');
     const td = document.createElement('td');
-    const span = document.createElement(`span`);
+    const span = document.createElement('span');
 
     const input_1 = document.createElement('input');
     const input_2 = document.createElement('input');
@@ -25,21 +26,16 @@ function push_plus(number) {
     input_1.type = 'text';
     td.textContent = "";
     td.setAttribute('id', `${number}`);
-    console.log(number);
+
     input_2.type = 'text';
     input_2.textContent = "";
     input_2.setAttribute('id', `${number}`);
-    number++;
 
-    if (number<=8) {
-        plus_btn.textContent = " + ";
-        span.appendChild(plus_btn);
-    }
-    else if(number>8){
-         plus_btn.remove();
-         plus_btn.textContent = " + ";
-         span.appendChild(plus_btn);
-    }
+    number++;
+    console.log(number);
+
+    plus_btn.textContent = " + ";
+    span.appendChild(plus_btn);
 
     td.appendChild(span);
     td.appendChild(input_1);
@@ -51,18 +47,12 @@ function push_plus(number) {
     check_btn.textContent = "check";
     tr.appendChild(check_btn);
 
-    plus_btn.addEventListener('click', function(event) {
-        push_plus(number); 
-    });
+    plus_btn.addEventListener('click', push_plus(number));
     check_btn.addEventListener('click', push_check);
-    return number;
-    
 
 }
 
 function push_check() {
-    
-}
 
-init();
+}
 

@@ -56,6 +56,7 @@ function push_plus(number) {
     });
     check_btn.addEventListener('click', push_check);
     return number;
+    
 
 }
 

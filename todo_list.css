@@ -1,0 +1,10 @@
+#table {
+    display: inline-block;
+    align-items: center;
+}
+
+#plus_btn,
+#check_btn {
+    margin-right: 10px;
+}
+

@@ -35,7 +35,6 @@ function push_plus() {
 
     console.log(number);
     number++;
- 
 
     plus_btn.textContent = " + ";
     span.appendChild(plus_btn);

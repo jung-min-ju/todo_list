@@ -1,23 +1,19 @@
-let number=1;
+let number = 1;
 
 function init() {
     let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
-       push_plus();
+        push_plus();
     });
 }
 
-window.addEventListener('load',init());
+window.addEventListener('load', init());
 //무조건 이 함수 먼저 실행되게 해주는 것 -> 제일 최상위객체 window
 
 function push_plus() {
-    const table = document.getElementById('table');
     const tbody = document.getElementById('tbody');
 
     const tr = document.createElement('tr');
-    const td = document.createElement('td');
-    const span = document.createElement('span');
-
     const input_1 = document.createElement('input');
     const input_2 = document.createElement('input');
 
@@ -27,35 +23,31 @@ function push_plus() {
     check_btn.setAttribute('id', `${number}`);
 
     input_1.type = 'text';
-    td.textContent = "";
-    td.setAttribute('id', `${number}`);
+    tr.textContent = "";
+    tr.setAttribute('id', `${number}`);
 
     input_2.type = 'text';
     input_2.textContent = "";
     input_2.setAttribute('id', `${number}`);
 
-    console.log(number);
     number++;
-
     plus_btn.textContent = " + ";
-    span.appendChild(plus_btn);
+    check_btn.textContent = "no";
 
-    td.appendChild(span);
-    td.appendChild(input_1);
-    td.appendChild(input_2);
-
-    tr.appendChild(td);
+    tr.appendChild(plus_btn);
+    tr.appendChild(input_1);
+    tr.appendChild(input_2);
+    tr.appendChild(check_btn);
     tbody.appendChild(tr);
 
-    check_btn.textContent = "check";
-    tr.appendChild(check_btn);
-
-    plus_btn.addEventListener('click', push_plus); //노션 해결법 참고
-    check_btn.addEventListener('click', push_check);
-    
+    plus_btn.addEventListener('click', push_plus); // 노션 문제점 1 참고
+    check_btn.addEventListener('click', function (event) { // 노션 문제점 2 참고
+        push_check(event);
+    });
 }
 
-function push_check(addEventListener) {
-    const check_btn = document.getElementById(`${number}`);
-    console.log(check_btn);
+function push_check(event) {
+    const check_btn = event.target;
+    const check_text = check_btn.textContent;
+    check_btn.textContent = check_text === "no" ? "yes" : "no";
 }

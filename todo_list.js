@@ -21,14 +21,14 @@ function push_plus() {
     const tbody = document.getElementById('tbody');
 
     const tr = document.createElement('tr');
+    const btn_td = document.createElement('td');
+
     const input_1 = document.createElement('input');
     const input_2 = document.createElement('input');
 
     const check_btn = document.createElement('button');
     const plus_btn = document.createElement('button');
     const delete_btn = document.createElement('button');
-
-    const btn_td = document.createElement('td'); // 새로운 td 요소 생성
 
     delete_btn.setAttribute('id', `delete_btn${number}`);
     plus_btn.setAttribute('id', `plus_btn${number}`);
@@ -54,10 +54,10 @@ function push_plus() {
     check_btn.textContent = "no";
     delete_btn.textContent = " - ";
 
-    btn_td.appendChild(delete_btn); // 버튼을 td 요소에 추가
+    btn_td.appendChild(delete_btn); 
     btn_td.appendChild(plus_btn);
 
-    tr.appendChild(btn_td); // td 요소를 tr 요소에 추가
+    tr.appendChild(btn_td); 
     tr.appendChild(input_1);
     tr.appendChild(input_2);
     tr.appendChild(check_btn);

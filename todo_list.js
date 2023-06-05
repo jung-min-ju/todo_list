@@ -40,15 +40,6 @@ function push_plus() {
     input_2.type = 'text';
     input_2.textContent = "";
 
-    /*
-
-    // input_1의 스타일 설정
-    input_1.style.width = "25%";
-
-    // input_2의 스타일 설정
-    input_2.style.width = "75%";
-    */
-
     number++;
     plus_btn.textContent = " + ";
     check_btn.textContent = "no";
@@ -62,8 +53,8 @@ function push_plus() {
     tr.appendChild(input_2);
     tr.appendChild(check_btn);
 
-    // tbody의 두 번째 자식으로 새로운 행(tr) 추가
-    tbody.insertBefore(tr, tbody.children[number - 1]);
+    tbody.appendChild(tr);
+    // tbody.insertBefore(tr, tbody.children[number - 1]);
 
     plus_btn.addEventListener('click', push_plus); // 노션 문제점 1 참고
     delete_btn.addEventListener('click', delete_row);
@@ -79,7 +70,7 @@ function push_check(event) {
 }
 
 function delete_row() {
-    const delete_target = document.getElementById(`${number - 1}`);
+    const delete_target = document.getElementById(`${number - 1}`); // tr 태그라는걸 알게 해줘야 된다.
     delete_target.remove();
     number--;
 

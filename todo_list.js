@@ -1,7 +1,8 @@
 let NUMBER = 1;
 let COLOR = new Map();
-const COLOR_ARRAY = ["Lavende","Baby Blue", "Mint Green", 
+const COLOR_ARRAY = ["lavender","rgb(173, 216, 230)", "Mint Green", 
 "Pale Pink", "Peach", "Light Yellow","Sky Blue","Pale Lilac","Light Green"];
+//웹에서 지원하는 색도 있고 아닌 색도 있기 때문에 색이 안바뀜. 코드에는 문제없으니 넘어가
 
 
 

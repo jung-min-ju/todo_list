@@ -1,5 +1,5 @@
 let NUMBER = 1;
-let COLOR = {};
+let COLOR = new Map();
 
 function init() {
     let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
@@ -37,9 +37,8 @@ function push_plus() {
     input_1.type = 'text';
     tr.textContent = "";
     tr.setAttribute('id', `${NUMBER }`);
-    input_1.addEventListener('onblur', function (event) { // 노션 문제점 2 참고
+    input_1.addEventListener('blur', function (event) { // 노션 문제점 2 참고
         blur(event);
-        console.log('asdjlkfasfjkl');
     });
 
     input_2.type = 'text';
@@ -86,15 +85,13 @@ function delete_row() {
 }
 
 function blur(event) {
-    const input= target.event;
-    const input_value = input.value;
+    const input = event.target;
+    const input1_value = input.value;
 
-    if(input_value.length<1) return;
-    if (!COLOR.hasOwnProperty(`COLOR.${input_value}`)){
-
-    }
-
-
+    if (input1_value.length < 1) return;
+    const key = `${input1_value}`;
+    if (!has(key)) COLOR[key] = 'red';
+    
 }
 
 //map과 set 보기

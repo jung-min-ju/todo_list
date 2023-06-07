@@ -1,5 +1,9 @@
 let NUMBER = 1;
 let COLOR = new Map();
+const COLOR_ARRAY = ["Lavende","Baby Blue", "Mint Green", 
+"Pale Pink", "Peach", "Light Yellow","Sky Blue","Pale Lilac","Light Green"];
+
+
 
 function init() {
     let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
@@ -35,6 +39,7 @@ function push_plus() {
     plus_btn.setAttribute('id', `plus_btn${NUMBER }`);
 
     input_1.type = 'text';
+    input_1.setAttribute('id', `${NUMBER }`);
     tr.textContent = "";
     tr.setAttribute('id', `${NUMBER }`);
     input_1.addEventListener('blur', function (event) { // 노션 문제점 2 참고
@@ -87,13 +92,13 @@ function delete_row() {
 function blur(event) {
     const input = event.target;
     const input1_value = input.value;
+    const number = input.id;
 
     if (input1_value.length < 1) return;
     const key = `${input1_value}`;
-    if (!has(key)) COLOR[key] = 'red';
-    
+    if (!COLOR.has(key)) {
+        COLOR.set(key,COLOR_ARRAY[number-1]);
+        input.style.color=COLOR_ARRAY[number-1];
+    }
 }
 
-//map과 set 보기
-
-//콜백함수 써보기!! 

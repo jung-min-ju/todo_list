@@ -8,20 +8,26 @@
 </head>
 
 <body>
-    <table id="table"> 
-        <thead></thead>
-        <tbody id="tbody">
-            <tr id = "0">
-                <td></td>
-                <td>
-                    <input type="text" value="subject" id = "title_1" readonly>
-                    <input type="text" value="todo" id = "title_2" readonly>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <script src="todo_list.js"></script>
+    <div id="first_container">
+        <table id="todo table">
+            <thead></thead>
+            <tbody id="tbody">
+                <tr id="0">
+                    <td></td>
+                    <td>
+                        <input type="text" value="subject" id="title_1" readonly>
+                        <input type="text" value="todo" id="title_2" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="second_container">
+        <div id = "palette"></div>
+        <div id = "timetable"></div>
+    </div>
+    <script src="todo_list.js" type="module"></script>
+    <script src="timetable.js" type="module"></script>
 </body>
 
 </html>

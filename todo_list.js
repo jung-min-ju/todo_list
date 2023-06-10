@@ -1,12 +1,13 @@
+import { Make_palette  } from './timetable.js';
+
 let NUMBER = 1;
-let COLOR = new Map();
-const COLOR_ARRAY = ["lavender","rgb(173, 216, 230)", "Mint Green", 
-"Pale Pink", "Peach", "Light Yellow","Sky Blue","Pale Lilac","Light Green"];
+export let COLOR = new Map();
+const COLOR_ARRAY = ["RGB(156, 136, 255)","RGB(27, 156, 252)", "RGB(225, 177, 44", 
+"RGB(76, 209, 55)", "#F97F51", "RGB(253, 167, 223)","RGB(253, 114, 114)",
+"RGB(44, 58, 71)","RGB(130, 88, 159)"];
 //웹에서 지원하는 색도 있고 아닌 색도 있기 때문에 색이 안바뀜. 코드에는 문제없으니 넘어가
 
-
-
-function init() {
+export function init() {
     let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
         push_plus();
@@ -64,7 +65,7 @@ function push_plus() {
     tr.appendChild(check_btn);
 
     tbody.appendChild(tr);
-    // tbody.insertBefore(tr, tbody.children[number - 1]);
+    //tbody.insertBefore(tr, tbody.children[number - 1]);
 
     plus_btn.addEventListener('click', push_plus); // 노션 문제점 1 참고
     delete_btn.addEventListener('click', delete_row);
@@ -92,14 +93,16 @@ function delete_row() {
 
 function blur(event) {
     const input = event.target;
-    const input1_value = input.value;
-    const number = input.id;
+    let input1_value = input.value;
+    const COLOR_dex = input.id-1;
+    console.log(COLOR_dex);
 
     if (input1_value.length < 1) return;
-    const key = `${input1_value}`;
-    if (!COLOR.has(key)) {
-        COLOR.set(key,COLOR_ARRAY[number-1]);
-        input.style.color=COLOR_ARRAY[number-1];
+    if (!COLOR.has(input1_value)) {
+        let value_object = {color : `${COLOR_ARRAY[COLOR_dex]}`, time : null};
+        COLOR.set(`${input1_value}`,value_object);
+        input.style.color=COLOR_ARRAY[COLOR_dex];
+        Make_palette(`${input1_value}`);
     }
 }
 

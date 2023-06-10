@@ -1,8 +1,3 @@
-#table {
-    display: inline-block;
-    align-items: center;
-}
-
 #plus_btn,
 #check_btn {
     margin-right: 10px;
@@ -10,8 +5,38 @@
 
 #title_1,
 #title_2 {
-    border: none; /* 테두리 제거 */
-    text-align: center; /* 글자 중앙 정렬 */
-    font-weight: bold; /* 볼드체 */
+    border: none;
+    text-align: center;
+    font-weight: bold;
     text-transform: uppercase;
 }
+
+#first_container,
+#second_container {
+    display: inline-block;
+}
+
+#first_container {
+    flex-direction: column;
+    align-items: center;
+    /* 추가: 요소들을 수평 가운데 정렬 */
+    justify-content: flex-end;
+}
+
+#second_container {
+    display: inline-block;
+}
+
+.timetable_input {
+    padding: 0px;
+    width: 20px;
+    height: 13px;
+}
+
+.palette_btn {
+    border: 0;
+    margin-right: 5px; /* 버튼 간의 간격을 조절합니다 */
+    width: 20px; /* 버튼의 가로 크기를 20px로 설정합니다 */
+    height: 20px; /* 버튼의 세로 크기를 20px로 설정합니다 */
+  }
+  

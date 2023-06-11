@@ -1,4 +1,4 @@
-import { Make_palette  } from './timetable.js';
+import { Make_palette } from './timetable.js';
 
 let NUMBER = 1;
 export let COLOR = new Map();

@@ -21,7 +21,6 @@ export function Make_palette(input1_value) {
 
 
 
-
 function timetable() {
     const timetable_container = document.getElementById('timetable');
     const timetable_div = document.createElement('div');

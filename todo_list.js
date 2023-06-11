@@ -1,7 +1,13 @@
 import { Make_palette } from './timetable.js';
 
 let NUMBER = 1;
-export let COLOR = new Map();
+let COLOR;
+const sharedObject = {
+    COLOR: new Map(),
+  };
+  
+  export { sharedObject };
+
 const COLOR_ARRAY = ["RGB(156, 136, 255)","RGB(27, 156, 252)", "RGB(225, 177, 44", 
 "RGB(76, 209, 55)", "#F97F51", "RGB(253, 167, 223)","RGB(253, 114, 114)",
 "RGB(44, 58, 71)","RGB(130, 88, 159)"];
@@ -98,11 +104,13 @@ function blur(event) {
     console.log(COLOR_dex);
 
     if (input1_value.length < 1) return;
-    if (!COLOR.has(input1_value)) {
+    if (!sharedObject.COLOR.has(input1_value)) {
         let value_object = {color : `${COLOR_ARRAY[COLOR_dex]}`, time : null};
-        COLOR.set(`${input1_value}`,value_object);
+        sharedObject.COLOR.set(`${input1_value}`,value_object);
         input.style.color=COLOR_ARRAY[COLOR_dex];
         Make_palette(`${input1_value}`);
     }
 }
 
+
+//고쳐야 할 점. 같은 위치에 다른 정보가 들어오면 같은 색깔로 새로운 map 객체가 생성됨. 바꿔치기 될 수 있게 바꿀 것!

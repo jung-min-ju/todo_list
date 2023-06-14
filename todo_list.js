@@ -1,12 +1,14 @@
 import { Make_palette } from './timetable.js';
 
 let NUMBER = 1;
-let COLOR;
-const sharedObject = {
-    COLOR: new Map(),
-  };
+//let COLOR;
+export const COLOR = new Map();
+// const map = new Map();
+// const sharedObject = {
+//     COLOR: map,
+//   };
   
-  export { sharedObject };
+//   export { sharedObject };
 
 const COLOR_ARRAY = ["RGB(156, 136, 255)","RGB(27, 156, 252)", "RGB(225, 177, 44", 
 "RGB(76, 209, 55)", "#F97F51", "RGB(253, 167, 223)","RGB(253, 114, 114)",
@@ -71,7 +73,6 @@ function push_plus() {
     tr.appendChild(check_btn);
 
     tbody.appendChild(tr);
-    //tbody.insertBefore(tr, tbody.children[number - 1]);
 
     plus_btn.addEventListener('click', push_plus); // 노션 문제점 1 참고
     delete_btn.addEventListener('click', delete_row);
@@ -104,13 +105,12 @@ function blur(event) {
     console.log(COLOR_dex);
 
     if (input1_value.length < 1) return;
-    if (!sharedObject.COLOR.has(input1_value)) {
-        let value_object = {color : `${COLOR_ARRAY[COLOR_dex]}`, time : null};
-        sharedObject.COLOR.set(`${input1_value}`,value_object);
+    if (!COLOR.has(input1_value)) {
+        let value_object = {color : `${COLOR_ARRAY[COLOR_dex]}`, time : 0};
+        COLOR.set(`${input1_value}`,value_object);
         input.style.color=COLOR_ARRAY[COLOR_dex];
         Make_palette(`${input1_value}`);
     }
 }
 
 
-//고쳐야 할 점. 같은 위치에 다른 정보가 들어오면 같은 색깔로 새로운 map 객체가 생성됨. 바꿔치기 될 수 있게 바꿀 것!

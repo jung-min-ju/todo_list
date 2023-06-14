@@ -1,11 +1,12 @@
-import { sharedObject } from './todo_list.js';
+import { COLOR } from './todo_list.js';
 
 let IsMouseDown = false;
+let EraserMouseDown = false;
 
 function init() {
     let myArray = Array.from({ length: 24 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
-        timetable();
+        timetable(item);
     });
 }
 
@@ -13,23 +14,26 @@ init();
 
 export function Make_palette(input1_value) {
     const palette_container = document.getElementById('palette');
-    const btn = document.createElement('button');
+    const color_btn = document.createElement('button');
+    const eraser = document.createElement('button');
 
-    btn.classList.add('palette_btn');
-    btn.setAttribute('id', `${input1_value}`);
+    color_btn.classList.add('palette_btn');
+    color_btn.setAttribute('id', `${input1_value}`);
 
-    btn.style.backgroundColor = sharedObject.COLOR.get(input1_value).color;
-    btn.setAttribute('data-toggle', 'tooltip');
-    btn.setAttribute('title', `${input1_value}`);
+    color_btn.style.backgroundColor = COLOR.get(input1_value).color;
+    color_btn.setAttribute('data-toggle', 'tooltip');
+    color_btn.setAttribute('title', `${input1_value}`);
 
-    btn.addEventListener('click', function (event) {
-        push_drag(event);
+    color_btn.addEventListener('click', function (event) {
+        push_drag(event, input1_value);
     });
 
-    palette_container.appendChild(btn);
+    return_map(`${input1_value}`);
+
+    palette_container.appendChild(color_btn);
 }
 
-function timetable() {
+function timetable(item) {
     const timetable_container = document.getElementById('timetable');
     const timetable_div = document.createElement('div');
 
@@ -42,14 +46,24 @@ function timetable() {
         timetable_div.appendChild(input);
     });
 
+    if (item === 1) {
+        const eraser_btn = document.createElement('button');
+        eraser_btn.setAttribute('id', 'eraser_btn');
+        eraser_btn.addEventListener('click', function (event) {
+            delete_drag(event);
+        });
+        eraser_btn.setAttribute('data-toggle', 'tooltip');
+        eraser_btn.setAttribute('title', 'ERASER');
+        timetable_div.appendChild(eraser_btn);
+    }
+
     timetable_container.appendChild(timetable_div);
 }
 
-function push_drag(event) {
+function push_drag(event, input1_value) {
     const btn = event.target;
     const btn_color = window.getComputedStyle(btn).backgroundColor;
     const timetable = document.getElementById('timetable');
-    const btn_name = btn.id;
 
     timetable.addEventListener('mousedown', (event) => {
         const target_element = event.target;
@@ -60,14 +74,16 @@ function push_drag(event) {
 
     timetable.addEventListener('mousemove', (event) => {
         const target_element = event.target;
-        const target_color = window.getComputedStyle(target_element).backgroundColor;
 
-        // if(target_color!==btn_color){
-        //     COLOR.push
-        // }
         if (IsMouseDown && target_element.tagName === 'INPUT') {
-            target_element.style.backgroundColor = `${btn_color}`;
-            target_element.style.borderColor = `${btn_color}`;
+            if (target_element.style.backgroundColor === `${btn_color}`) {
+                return;
+            }
+            else {
+                target_element.style.backgroundColor = `${btn_color}`;
+                target_element.style.borderColor = `${btn_color}`;
+                COLOR.get(input1_value).time++;
+            }
         }
     })
 
@@ -76,6 +92,36 @@ function push_drag(event) {
     })
 }
 
-function delete_drag() {
-
+function return_map(input1_value){
+    return `${input1_value}`;
 }
+
+function delete_drag(event) {
+    const eraser = event.target;
+    const input1_value=return_map();
+
+    eraser.addEventListener('mousedown', (event) => {
+        EraserMouseDown = true;
+    })
+
+    eraser.addEventListener('mousemove', (event) => {
+        const target_element = event.target;
+
+        if (EraserMouseDown) {
+            if (target_element.style.backgroundColor === '') {
+                return;
+            }
+            else {
+               // console.log('지우기');
+                target_element.style.backgroundColor = '';
+                target_element.style.borderColor = '';
+                COLOR.get(input1_value).time--;
+            }
+        }
+    })
+
+    eraser.addEventListener('mouseup', (event) => {
+        EraserMouseDown = false;
+    })
+}
+

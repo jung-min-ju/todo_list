@@ -7,19 +7,21 @@ function init() {
     let myArray = Array.from({ length: 24 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
         timetable(item);
+        set_time(item);
     });
 }
 
 init();
 
 function timetable(item) {
+    console.log(item);
     const timetable_container = document.getElementById('timetable');
     const timetable_div = document.createElement('div');
-    const span = document.createElement('span');
 
     let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
-    myArray.forEach(function (item) {
+    myArray.forEach(function (inner_item) {
         const input = document.createElement('input');
+        if (inner_item === 1) input.setAttribute('id', `timetable_${item}`);
         input.type = "text";
         input.value = "";
         input.classList.add('timetable_input');
@@ -28,13 +30,19 @@ function timetable(item) {
 
     if (item === 1) {
         timetable_div.setAttribute('id', 'eraser_div');
-        console.log('eraser_div 생성 완료');
     }
 
-    span.textContent = item; 
+    timetable_container.appendChild(timetable_div);
+}
 
-    timetable_container.appendChild(timetable_div); 
-    console.log('timetable_div 생성 완료');
+function set_time(item) {
+    const timetable_time = document.getElementById(`timetable_${item}`);
+    if (item <= 7) timetable_time.value = item + 5;
+    else if (item > 7 && item <= 19) timetable_time.value = item - 7;
+    else timetable_time.value = item - 19;
+    timetable_time.style.border = "none";
+    timetable_time.style.textAlign = "center";
+    timetable_time.disabled = true;
 }
 
 export function Make_palette(input1_value) {
@@ -61,7 +69,7 @@ export function Make_palette(input1_value) {
 
     eraser_btn.setAttribute('id', 'eraser_btn');
     eraser_btn.addEventListener('click', function (event) {
-        delete_drag(event,input1_value);
+        delete_drag(event, input1_value);
     });
     eraser_btn.setAttribute('data-toggle', 'tooltip');
     eraser_btn.setAttribute('title', 'ERASER');
@@ -91,11 +99,12 @@ function push_drag(event, input1_value) {
                 target_element.style.backgroundColor = `${btn_color}`;
                 target_element.style.borderColor = `${btn_color}`;
                 COLOR.get(input1_value).time++;
+                console.log('더해지는 중 : '+COLOR.get(input1_value).time);
             }
         }
     })
 
-    timetable.addEventListener('mouseup', (event) => {
+    timetable.addEventListener('mouseup', () => {
         IsMouseDown = false;
     })
 }
@@ -104,9 +113,9 @@ function delete_drag(event, input1_value) {
     const eraser = event.target;
     const timetable = document.getElementById('timetable');
 
-    console.log(input1_value); 
+    console.log(input1_value);
 
-    timetable.addEventListener('mousedown', (event) => {
+    timetable.addEventListener('mousedown', () => {
         EraserMouseDown = true;
     })
 
@@ -121,11 +130,12 @@ function delete_drag(event, input1_value) {
                 target_element.style.backgroundColor = '';
                 target_element.style.borderColor = '';
                 COLOR.get(input1_value).time--;
+                console.log('최종 : '+ COLOR.get(input1_value).time);
             }
         }
     })
 
-    timetable.addEventListener('mouseup', (event) => {
+    timetable.addEventListener('mouseup', () => {
         EraserMouseDown = false;
     })
 }

@@ -3,13 +3,14 @@ import { Make_palette } from './timetable.js';
 let NUMBER = 1;
 export const COLOR = new Map();
 
-const COLOR_ARRAY = ["RGB(156, 136, 255)","RGB(27, 156, 252)", "RGB(225, 177, 44", 
-"RGB(76, 209, 55)", "#F97F51", "RGB(253, 167, 223)","RGB(253, 114, 114)",
-"RGB(44, 58, 71)","RGB(130, 88, 159)"];
+const COLOR_ARRAY = 
+["RGB(156, 136, 255)","RGB(27, 156, 252)", "RGB(225, 177, 44", 
+"RGB(76, 209, 55)", "rgb(249, 127, 81)", "RGB(253, 167, 223)",
+"RGB(253, 114, 114)","RGB(44, 58, 71)","RGB(130, 88, 159)"];
 //웹에서 지원하는 색도 있고 아닌 색도 있기 때문에 색이 안바뀜. 코드에는 문제없으니 넘어가
 
 export function init() {
-    let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
+    let myArray = Array.from({ length: 19 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
         push_plus();
     });

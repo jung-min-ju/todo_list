@@ -27,7 +27,8 @@
     display: inline-block;
 }
 
-.timetable_input {
+.timetable_input,
+#fade_input {
     padding: 0px;
     width: 20px;
     height: 13px;

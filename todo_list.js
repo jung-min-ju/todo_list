@@ -19,6 +19,10 @@ export function init() {
 window.addEventListener('load', init());
 
 function push_plus() {
+    if(NUMBER>23) {
+        alert('23칸 이상을 만드는 것은 불가능합니다.')
+        return;
+    }
     if (NUMBER !== 1) {
         const fade_delete = document.getElementById(`delete_btn${NUMBER  - 1}`);
         const fade_plus = document.getElementById(`plus_btn${NUMBER - 1}`);
@@ -81,6 +85,11 @@ function push_check(event) {
 }
 
 function delete_row() {
+    console.log(NUMBER);
+    if(NUMBER<=2){
+        alert('최소 1칸은 필요합니다.');
+        return;
+    }
     const delete_target = document.getElementById(`${NUMBER  - 1}`); // tr 태그라는걸 알게 해줘야 된다.
     delete_target.remove();
     NUMBER --;
@@ -95,7 +104,6 @@ function blur(event) {
     const input = event.target;
     let input1_value = input.value;
     const COLOR_dex = input.id-1;
-    console.log(COLOR_dex);
 
     if (input1_value.length < 1) return;
     if (!COLOR.has(input1_value)) {

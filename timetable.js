@@ -112,9 +112,9 @@ function delete_drag(event) {
                 return;
             }
             else {
-               // console.log('지우기');
-                target_element.style.backgroundColor = '';
-                target_element.style.borderColor = '';
+                //console.log('지우기');
+                target_element.style.backgroundColor = "black";
+                target_element.style.borderColor = 'black';
                 COLOR.get(input1_value).time--;
             }
         }

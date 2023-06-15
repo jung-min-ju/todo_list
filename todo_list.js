@@ -1,14 +1,7 @@
 import { Make_palette } from './timetable.js';
 
 let NUMBER = 1;
-//let COLOR;
 export const COLOR = new Map();
-// const map = new Map();
-// const sharedObject = {
-//     COLOR: map,
-//   };
-  
-//   export { sharedObject };
 
 const COLOR_ARRAY = ["RGB(156, 136, 255)","RGB(27, 156, 252)", "RGB(225, 177, 44", 
 "RGB(76, 209, 55)", "#F97F51", "RGB(253, 167, 223)","RGB(253, 114, 114)",
@@ -23,7 +16,6 @@ export function init() {
 }
 
 window.addEventListener('load', init());
-//무조건 이 함수 먼저 실행되게 해주는 것 -> 제일 최상위객체 window
 
 function push_plus() {
     if (NUMBER !== 1) {
@@ -52,7 +44,7 @@ function push_plus() {
     input_1.setAttribute('id', `${NUMBER }`);
     tr.textContent = "";
     tr.setAttribute('id', `${NUMBER }`);
-    input_1.addEventListener('blur', function (event) { // 노션 문제점 2 참고
+    input_1.addEventListener('blur', function (event) { 
         blur(event);
     });
 
@@ -74,9 +66,9 @@ function push_plus() {
 
     tbody.appendChild(tr);
 
-    plus_btn.addEventListener('click', push_plus); // 노션 문제점 1 참고
+    plus_btn.addEventListener('click', push_plus); 
     delete_btn.addEventListener('click', delete_row);
-    check_btn.addEventListener('click', function (event) { // 노션 문제점 2 참고
+    check_btn.addEventListener('click', function (event) {
         push_check(event);
     });
 }

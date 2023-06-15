@@ -12,30 +12,10 @@ function init() {
 
 init();
 
-export function Make_palette(input1_value) {
-    const palette_container = document.getElementById('palette');
-    const color_btn = document.createElement('button');
-    const eraser = document.createElement('button');
-
-    color_btn.classList.add('palette_btn');
-    color_btn.setAttribute('id', `${input1_value}`);
-
-    color_btn.style.backgroundColor = COLOR.get(input1_value).color;
-    color_btn.setAttribute('data-toggle', 'tooltip');
-    color_btn.setAttribute('title', `${input1_value}`);
-
-    color_btn.addEventListener('click', function (event) {
-        push_drag(event, input1_value);
-    });
-
-    return_map(`${input1_value}`);
-
-    palette_container.appendChild(color_btn);
-}
-
 function timetable(item) {
     const timetable_container = document.getElementById('timetable');
     const timetable_div = document.createElement('div');
+    const span = document.createElement('span');
 
     let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
@@ -47,17 +27,45 @@ function timetable(item) {
     });
 
     if (item === 1) {
-        const eraser_btn = document.createElement('button');
-        eraser_btn.setAttribute('id', 'eraser_btn');
-        eraser_btn.addEventListener('click', function (event) {
-            delete_drag(event);
-        });
-        eraser_btn.setAttribute('data-toggle', 'tooltip');
-        eraser_btn.setAttribute('title', 'ERASER');
-        timetable_div.appendChild(eraser_btn);
+        timetable_div.setAttribute('id', 'eraser_div');
+        console.log('eraser_div 생성 완료');
     }
 
-    timetable_container.appendChild(timetable_div);
+    span.textContent = item; 
+
+    timetable_container.appendChild(timetable_div); 
+    console.log('timetable_div 생성 완료');
+}
+
+export function Make_palette(input1_value) {
+
+    const palette_container = document.getElementById('palette');
+    const color_btn = document.createElement('button');
+
+    color_btn.classList.add('palette_btn');
+    color_btn.setAttribute('id', `${input1_value}`);
+
+    color_btn.style.backgroundColor = COLOR.get(input1_value).color;
+
+    color_btn.setAttribute('data-toggle', 'tooltip');
+    color_btn.setAttribute('title', `${input1_value}`);
+
+    color_btn.addEventListener('click', function (event) {
+        push_drag(event, input1_value);
+    });
+
+    palette_container.appendChild(color_btn);
+
+    const eraser_div = document.getElementById('eraser_div');
+    const eraser_btn = document.createElement('button');
+
+    eraser_btn.setAttribute('id', 'eraser_btn');
+    eraser_btn.addEventListener('click', function (event) {
+        delete_drag(event,input1_value);
+    });
+    eraser_btn.setAttribute('data-toggle', 'tooltip');
+    eraser_btn.setAttribute('title', 'ERASER');
+    eraser_div.appendChild(eraser_btn);
 }
 
 function push_drag(event, input1_value) {
@@ -92,19 +100,17 @@ function push_drag(event, input1_value) {
     })
 }
 
-function return_map(input1_value){
-    return `${input1_value}`;
-}
-
-function delete_drag(event) {
+function delete_drag(event, input1_value) {
     const eraser = event.target;
-    const input1_value=return_map();
+    const timetable = document.getElementById('timetable');
 
-    eraser.addEventListener('mousedown', (event) => {
+    console.log(input1_value); 
+
+    timetable.addEventListener('mousedown', (event) => {
         EraserMouseDown = true;
     })
 
-    eraser.addEventListener('mousemove', (event) => {
+    timetable.addEventListener('mousemove', (event) => {
         const target_element = event.target;
 
         if (EraserMouseDown) {
@@ -112,15 +118,14 @@ function delete_drag(event) {
                 return;
             }
             else {
-                //console.log('지우기');
-                target_element.style.backgroundColor = "black";
-                target_element.style.borderColor = 'black';
+                target_element.style.backgroundColor = '';
+                target_element.style.borderColor = '';
                 COLOR.get(input1_value).time--;
             }
         }
     })
 
-    eraser.addEventListener('mouseup', (event) => {
+    timetable.addEventListener('mouseup', (event) => {
         EraserMouseDown = false;
     })
 }

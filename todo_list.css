@@ -41,9 +41,10 @@
     height: 20px; /* 버튼의 세로 크기를 20px로 설정합니다 */
   }
 
-  #eraser_btn{
+  #eraser_btn,
+  #result_btn{
     margin-left: 10px;
     width: 15px; /* 버튼의 가로 크기를 20px로 설정합니다 */
     height: 15px;
   }
-  
+

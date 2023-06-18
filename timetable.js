@@ -20,7 +20,10 @@ function timetable(item) {
     let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
     myArray.forEach(function (inner_item) {
         const input = document.createElement('input');
-        if (inner_item === 1) input.setAttribute('id', `timetable_${item}`);
+        if (inner_item === 1) {
+            input.setAttribute('id', `timetable_time${item}`);
+            input.classList.add('class_time');
+        }
         input.type = "text";
         input.value = "";
         input.classList.add('timetable_input');
@@ -34,17 +37,18 @@ function timetable(item) {
 }
 
 function set_time(item) {
-    const timetable_time = document.getElementById(`timetable_${item}`);
+    const timetable_time = document.getElementById(`timetable_time${item}`);
+
     if (item <= 7) timetable_time.value = item + 5;
     else if (item > 7 && item <= 19) timetable_time.value = item - 7;
     else timetable_time.value = item - 19;
+
     timetable_time.style.border = "none";
     timetable_time.style.textAlign = "center";
     timetable_time.disabled = true;
 }
 
 export function Make_palette(input1_value) {
-
     const palette_container = document.getElementById('palette');
     const fade_input = document.createElement('input');
     const color_btn = document.createElement('button');
@@ -53,6 +57,7 @@ export function Make_palette(input1_value) {
     if (btn_count === 1) {
         const eraser_div = document.getElementById('eraser_div');
         const eraser_btn = document.createElement('button');
+        const result_btn = document.createElement('button');
 
         eraser_btn.setAttribute('id', 'eraser_btn');
         eraser_btn.addEventListener('click', function (event) {
@@ -61,6 +66,12 @@ export function Make_palette(input1_value) {
         eraser_btn.setAttribute('data-toggle', 'tooltip');
         eraser_btn.setAttribute('title', 'ERASER');
         eraser_div.appendChild(eraser_btn);
+
+        result_btn.addEventListener('click',function() {
+            console.log(COLOR);
+        });
+        result_btn.setAttribute('id','result_btn');
+        eraser_div.appendChild(result_btn);
 
         palette_container.appendChild(fade_input);
         fade_input.setAttribute('id', 'fade_input');
@@ -107,15 +118,15 @@ function push_drag(event, input1_value) {
         const target_element = event.target;
 
         if (IsMouseDown && target_element.tagName === 'INPUT') {
-            if (target_element.style.backgroundColor === `${btn_color}`) {
-                return;
-            }
-            //else if (target_element.id === )
+            if (target_element.classList.contains("class_time")) return;
+            if (target_element.style.backgroundColor === `${btn_color}`) return;
             else {
                 target_element.style.backgroundColor = `${btn_color}`;
                 target_element.style.borderColor = `${btn_color}`;
-                COLOR.get(input1_value).time++;
-                //console.log('더해지는 중 : '+COLOR.get(input1_value).time);
+                target_element.setAttribute('data-toggle', 'tooltip');
+                target_element.setAttribute('title', `${input1_value}`);
+
+                COLOR.get(input1_value).time+=1;
             }
         }
     })
@@ -143,8 +154,7 @@ function delete_drag(event, input1_value) {
             else {
                 target_element.style.backgroundColor = '';
                 target_element.style.borderColor = '';
-                COLOR.get(input1_value).time--;
-                //console.log('최종 : '+ COLOR.get(input1_value).time);
+                COLOR.get(input1_value).time-=1;
             }
         }
     })

@@ -3,11 +3,13 @@ import { Make_palette } from './timetable.js';
 let NUMBER = 1;
 export const COLOR = new Map();
 
-const COLOR_ARRAY = 
-["RGB(156, 136, 255)","RGB(27, 156, 252)", "RGB(225, 177, 44", 
-"RGB(76, 209, 55)", "rgb(249, 127, 81)", "RGB(253, 167, 223)",
-"RGB(253, 114, 114)","RGB(44, 58, 71)","RGB(130, 88, 159)"];
-//웹에서 지원하는 색도 있고 아닌 색도 있기 때문에 색이 안바뀜. 코드에는 문제없으니 넘어가
+const COLOR_ARRAY =
+    ["#55efc4", "#74b9ff", "#a29bfe", "#ffeaa7",
+        "#fab1a0", "#81ecec", "#dfe6e9", "#00b894",
+        "#0984e3", "#6c5ce7", "#ff7675", "#b2bec3",
+        "#fdcb6e", "#e17055", "#00cec9", "#fd79a8",
+        "#636e72", "#B33771", "#BDC581", "#58B19F",
+        "#e67e22", "#f1c40f", "#cf6a87"];
 
 export function init() {
     let myArray = Array.from({ length: 19 }, (_, index) => index + 1);
@@ -19,12 +21,12 @@ export function init() {
 window.addEventListener('load', init());
 
 function push_plus() {
-    if(NUMBER>23) {
+    if (NUMBER > 23) {
         alert('23칸 이상을 만드는 것은 불가능합니다.')
         return;
     }
     if (NUMBER !== 1) {
-        const fade_delete = document.getElementById(`delete_btn${NUMBER  - 1}`);
+        const fade_delete = document.getElementById(`delete_btn${NUMBER - 1}`);
         const fade_plus = document.getElementById(`plus_btn${NUMBER - 1}`);
         fade_delete.style.display = 'none';
         fade_plus.style.display = 'none';
@@ -37,29 +39,40 @@ function push_plus() {
 
     const input_1 = document.createElement('input');
     const input_2 = document.createElement('input');
+    const checkbox = document.createElement('input');
 
-    const check_btn = document.createElement('button');
     const plus_btn = document.createElement('button');
     const delete_btn = document.createElement('button');
 
-    delete_btn.setAttribute('id', `delete_btn${NUMBER }`);
-    plus_btn.setAttribute('id', `plus_btn${NUMBER }`);
+    delete_btn.setAttribute('id', `delete_btn${NUMBER}`);
+    plus_btn.setAttribute('id', `plus_btn${NUMBER}`);
 
     input_1.type = 'text';
-    input_1.setAttribute('id', `${NUMBER }`);
+    input_1.setAttribute('id', `${NUMBER}`);
+    input_1.style.width = '100px';
+
     tr.textContent = "";
-    tr.setAttribute('id', `${NUMBER }`);
-    input_1.addEventListener('blur', function (event) { 
+    tr.setAttribute('id', `${NUMBER}`);
+    input_1.addEventListener('blur', function (event) {
         blur(event);
     });
 
     input_2.type = 'text';
-    input_2.textContent = "";
+    input_2.textContent = ""; 
+    input_2.style.width="200px";
 
-    NUMBER ++;
     plus_btn.textContent = " + ";
-    check_btn.textContent = "no";
     delete_btn.textContent = " - ";
+
+    checkbox.type="checkbox";
+    checkbox.setAttribute('id',`${NUMBER}`);
+    checkbox.addEventListener('change', function(event){
+        check_change(event);
+    });
+    checkbox.style.width="16px";
+    checkbox.style.height="16px";
+
+    NUMBER++;
 
     btn_td.appendChild(delete_btn);
     btn_td.appendChild(plus_btn);
@@ -67,51 +80,56 @@ function push_plus() {
     tr.appendChild(btn_td);
     tr.appendChild(input_1);
     tr.appendChild(input_2);
-    tr.appendChild(check_btn);
+    tr.appendChild(checkbox);
 
     tbody.appendChild(tr);
 
-    plus_btn.addEventListener('click', push_plus); 
+    plus_btn.addEventListener('click', push_plus);
     delete_btn.addEventListener('click', delete_row);
-    check_btn.addEventListener('click', function (event) {
-        push_check(event);
-    });
-}
-
-function push_check(event) {
-    const check_btn = event.target;
-    const check_text = check_btn.textContent;
-    check_btn.textContent = check_text === "no" ? "yes" : "no";
 }
 
 function delete_row() {
-    console.log(NUMBER);
-    if(NUMBER<=2){
+    if (NUMBER <= 2) {
         alert('최소 1칸은 필요합니다.');
         return;
     }
-    const delete_target = document.getElementById(`${NUMBER  - 1}`); // tr 태그라는걸 알게 해줘야 된다.
+    const delete_target = document.getElementById(`${NUMBER - 1}`); // tr 태그라는걸 알게 해줘야 된다.
     delete_target.remove();
-    NUMBER --;
+    NUMBER--;
 
-    const show_delete = document.getElementById(`delete_btn${NUMBER  - 1}`);
-    const show_plus = document.getElementById(`plus_btn${NUMBER  - 1}`);
+    const show_delete = document.getElementById(`delete_btn${NUMBER - 1}`);
+    const show_plus = document.getElementById(`plus_btn${NUMBER - 1}`);
     show_delete.style.display = 'inline';
     show_plus.style.display = 'inline';
 }
 
 function blur(event) {
     const input = event.target;
-    let input1_value = input.value;
-    const COLOR_dex = input.id-1;
+    const input1_value = input.value;
+    const COLOR_dex = input.id - 1;
+
+    const isColorExist = [...COLOR.values()].some(value => value.color === COLOR_ARRAY[COLOR_dex]);
 
     if (input1_value.length < 1) return;
-    if (!COLOR.has(input1_value)) {
-        let value_object = {color : `${COLOR_ARRAY[COLOR_dex]}`, time : 0};
-        COLOR.set(`${input1_value}`,value_object);
+    if (!COLOR.has(input1_value)&&(!isColorExist)) {
+        let value_object = { color: `${COLOR_ARRAY[COLOR_dex]}`, time: 0 };
+        COLOR.set(`${input1_value}`, value_object);
+        input.style.borderColor = COLOR_ARRAY[COLOR_dex];
+        input.style.fontWeight = 'bold';
         input.style.color=COLOR_ARRAY[COLOR_dex];
         Make_palette(`${input1_value}`);
     }
 }
 
 
+function check_change(event){
+    const checkbox = event.target;
+    const COLOR_dex = checkbox.id - 1;
+
+    if (checkbox.checked){
+        checkbox.style.accentColor = COLOR_ARRAY[COLOR_dex];
+    }
+    else {
+        checkbox.style.accentColor='';
+    }
+}

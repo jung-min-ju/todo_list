@@ -99,6 +99,7 @@ export function Make_palette(input1_value) {
     });
 
     palette_container.appendChild(color_btn);
+    
 }
 
 function push_drag(event, input1_value) {

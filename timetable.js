@@ -3,7 +3,7 @@ import { COLOR } from './todo_list.js';
 let IsMouseDown = false;
 let EraserMouseDown = false;
 
-function init() {
+function init() { 
     let myArray = Array.from({ length: 24 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
         timetable(item);
@@ -13,7 +13,7 @@ function init() {
 
 init();
 
-function timetable(item) {
+function timetable(item) { 
     const timetable_container = document.getElementById('timetable');
     const timetable_div = document.createElement('div');
 
@@ -86,7 +86,6 @@ export function Make_palette(input1_value) {
         fade_input.style.border = 'none';
     }
 
-    color_btn.classList.add('palette_btn');
     color_btn.setAttribute('id', `${input1_value}`);
 
     color_btn.style.backgroundColor = COLOR.get(input1_value).color;
@@ -99,7 +98,6 @@ export function Make_palette(input1_value) {
     });
 
     palette_container.appendChild(color_btn);
-    
 }
 
 function push_drag(event, input1_value) {
@@ -127,6 +125,7 @@ function push_drag(event, input1_value) {
                 target_element.setAttribute('title', `${input1_value}`);
 
                 COLOR.get(input1_value).time+=1;
+                console.log(input1_value+' : '+COLOR.get(input1_value).time);
             }
         }
     })
@@ -136,7 +135,7 @@ function push_drag(event, input1_value) {
     })
 }
 
-function delete_drag(event, input1_value) {
+function delete_drag(event, input1_value) { 
     const eraser = event.target;
     const timetable = document.getElementById('timetable');
 

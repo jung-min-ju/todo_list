@@ -97,7 +97,6 @@ export function Make_palette(input1_value) {
     color_btn.addEventListener('click', function (event) {
         push_drag(event, input1_value);
     });
-    console.log(btn_count);
 
     palette_container.appendChild(color_btn);
 }

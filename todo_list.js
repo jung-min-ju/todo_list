@@ -9,7 +9,8 @@ const COLOR_ARRAY =
         "#0984e3", "#6c5ce7", "#ff7675", "#b2bec3",
         "#fdcb6e", "#e17055", "#00cec9", "#fd79a8",
         "#636e72", "#B33771", "#BDC581", "#58B19F",
-        "#e67e22", "#f1c40f", "#cf6a87"];
+        "#e67e22", "#f1c40f", "#cf6a87"
+    ];
 
 export function init() {
     let myArray = Array.from({ length: 19 }, (_, index) => index + 1);
@@ -58,19 +59,19 @@ function push_plus() {
     });
 
     input_2.type = 'text';
-    input_2.textContent = ""; 
-    input_2.style.width="200px";
+    input_2.textContent = "";
+    input_2.style.width = "200px";
 
     plus_btn.textContent = " + ";
     delete_btn.textContent = " - ";
 
-    checkbox.type="checkbox";
-    checkbox.setAttribute('id',`${NUMBER}`);
-    checkbox.addEventListener('change', function(event){
+    checkbox.type = "checkbox";
+    checkbox.setAttribute('id', `${NUMBER}`);
+    checkbox.addEventListener('change', function (event) {
         check_change(event);
     });
-    checkbox.style.width="16px";
-    checkbox.style.height="16px";
+    checkbox.style.width = "16px";
+    checkbox.style.height = "16px";
 
     NUMBER++;
 
@@ -111,25 +112,25 @@ function blur(event) {
     const isColorExist = [...COLOR.values()].some(value => value.color === COLOR_ARRAY[COLOR_dex]);
 
     if (input1_value.length < 1) return;
-    if (!COLOR.has(input1_value)&&(!isColorExist)) {
+    if (!COLOR.has(input1_value) && (!isColorExist)) {
         let value_object = { color: `${COLOR_ARRAY[COLOR_dex]}`, time: 0 };
         COLOR.set(`${input1_value}`, value_object);
         input.style.borderColor = COLOR_ARRAY[COLOR_dex];
         input.style.fontWeight = 'bold';
-        input.style.color=COLOR_ARRAY[COLOR_dex];
+        input.style.color = COLOR_ARRAY[COLOR_dex];
         Make_palette(`${input1_value}`);
     }
 }
 
 
-function check_change(event){
+function check_change(event) {
     const checkbox = event.target;
     const COLOR_dex = checkbox.id - 1;
 
-    if (checkbox.checked){
+    if (checkbox.checked) {
         checkbox.style.accentColor = COLOR_ARRAY[COLOR_dex];
     }
     else {
-        checkbox.style.accentColor='';
+        checkbox.style.accentColor = '';
     }
 }

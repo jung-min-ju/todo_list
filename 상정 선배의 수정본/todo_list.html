@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>todo</title>
+    <link rel="stylesheet" href="todo_list.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <!-- wrap은 메인 컨텐츠를 담는 박스-->
+        <div id="left">
+            <div id="container">
+                <table id="todo_table">
+                    <thead>
+                        <tr>
+                            <td class="title">
+                                subject
+                            </td>
+                            <td class="title"> 
+                                todo
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+                <div id="button_box">
+                    <button id="delete_btn"> - </button>
+                    <button id="plus_btn"> + </button>
+                </div>
+            </div>
+        </div>
+        <div id="right">
+            <div id = "right_top">
+                <div id = "palette">
+               </div>
+            </div>
+            <div id="right_middle">
+                <button class="p_btn" id="remove_btn">remove</button>
+                <button class="p_btn">result</button>
+            </div>
+            <div id = "timetable">
+            </div>
+        </div>
+        <script src="todo_list.js" type="module"></script>
+        <script src="timetable.js" type="module"></script>
+
+    </div>
+</body>
+
+</html>

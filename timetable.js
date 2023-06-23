@@ -3,7 +3,7 @@ import { COLOR } from './todo_list.js';
 let IsMouseDown = false;
 let EraserMouseDown = false;
 
-function init() { 
+function init() {  //int main()
     let myArray = Array.from({ length: 24 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
         timetable(item);
@@ -13,7 +13,7 @@ function init() {
 
 init();
 
-function timetable(item) { 
+function timetable(item) { //타임테이블 생성
     const timetable_container = document.getElementById('timetable');
     const timetable_div = document.createElement('div');
 
@@ -36,7 +36,7 @@ function timetable(item) {
     timetable_container.appendChild(timetable_div);
 }
 
-function set_time(item) {
+function set_time(item) { //타임테이블의 시간 표시
     const timetable_time = document.getElementById(`timetable_time${item}`);
 
     if (item <= 7) timetable_time.value = item + 5;
@@ -48,7 +48,7 @@ function set_time(item) {
     timetable_time.disabled = true;
 }
 
-export function Make_palette(input1_value) {
+export function Make_palette(input1_value) { // color_btn 있는 팔레트 판 생성
     const palette_container = document.getElementById('palette');
     const fade_input = document.createElement('input');
     const color_btn = document.createElement('button');
@@ -78,7 +78,7 @@ export function Make_palette(input1_value) {
         fade_input.style.border = 'none';
     }
 
-    if (btn_count % 8 === 0) {
+    if (btn_count % 8 === 0) { //color_btn 한 줄 내리기
         const palette_div = document.createElement('div');
         palette_container.appendChild(palette_div);
         palette_container.appendChild(fade_input);
@@ -87,6 +87,7 @@ export function Make_palette(input1_value) {
     }
 
     color_btn.setAttribute('id', `${input1_value}`);
+    color_btn.classList.add('palette_btn');
 
     color_btn.style.backgroundColor = COLOR.get(input1_value).color;
 
@@ -95,12 +96,14 @@ export function Make_palette(input1_value) {
 
     color_btn.addEventListener('click', function (event) {
         push_drag(event, input1_value);
+        console.log("addEvent"+input1_value);
     });
 
     palette_container.appendChild(color_btn);
 }
 
-function push_drag(event, input1_value) {
+
+function push_drag(event, input1_value) { //타임테이블의 형관펜 함수
     const btn = event.target;
     const btn_color = window.getComputedStyle(btn).backgroundColor;
     const timetable = document.getElementById('timetable');
@@ -135,7 +138,7 @@ function push_drag(event, input1_value) {
     })
 }
 
-function delete_drag(event, input1_value) { 
+function delete_drag(event, input1_value) { // 타임테이블의 지우개 함수
     const eraser = event.target;
     const timetable = document.getElementById('timetable');
 

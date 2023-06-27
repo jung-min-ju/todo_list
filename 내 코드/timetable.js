@@ -1,7 +1,7 @@
 import { COLOR } from './todo_list.js';
 
 let palette_index = 0;
-const EraserMouseDown = false;
+let EraserMouseDown = false;
 
 
 export function Make_palette(input1_value) { //color_btn 있는 팔레트 판 생성
@@ -18,6 +18,9 @@ export function Make_palette(input1_value) { //color_btn 있는 팔레트 판 �
         eraser_btn.setAttribute('id', 'eraser_btn');
         eraser_btn.setAttribute('data-toggle', 'tooltip');
         eraser_btn.setAttribute('title', 'ERASER');
+        eraser_btn.addEventListener('click', function (event) {
+            eraser_event(event, input1_value);
+        });
         eraser_div.appendChild(eraser_btn);
 
         result_btn.addEventListener('click', function () {
@@ -49,7 +52,6 @@ export function Make_palette(input1_value) { //color_btn 있는 팔레트 판 �
     palette_container.appendChild(color_btn);
 
     add_drag_event(`color_btn${palette_index}`, input1_value);
-    add_eraser_event(`color_btn${palette_index}`, input1_value);
 }
 
 
@@ -61,12 +63,7 @@ function add_drag_event(btn_id, input1_value) {
     palette_index++;
 }
 
-function add_eraser_event(btn_id, input1_value){
-    const eraser = document.getElementById('eraser_btn');
-    eraser.addEventListener('click', function (event) {
-        eraser_event(btn_id, input1_value)
-    });
-}
+
 function push_drag(btn_id, input1_value) { //타임테이블의 형관펜 함수
     const timetable = document.getElementById('timetable');
 
@@ -92,7 +89,7 @@ function push_drag(btn_id, input1_value) { //타임테이블의 형관펜 함수
         }
     }
 
-    
+
     function mousedown(event) {
         timetable.addEventListener('mousemove', mousemove);
     }
@@ -101,20 +98,18 @@ function push_drag(btn_id, input1_value) { //타임테이블의 형관펜 함수
         timetable.removeEventListener('mousemove', mousemove);
     }
 
-    timetable.addEventListener('mousedown', mousedown,{once: true});
-    timetable.addEventListener('mouseup', mouseup,{once: true});
+    timetable.addEventListener('mousedown', mousedown, { once: true });
+    timetable.addEventListener('mouseup', mouseup, { once: true });
 }
 
 
-function eraser_event(btn_id, input1_value) { //타임테이블의 지우개 함수
+function eraser_event(event, input1_value) { //타임테이블의 지우개 함수
     const timetable = document.getElementById('timetable');
 
-    const btn = document.getElementById(btn_id);
-    const helpObj = COLOR.get(`${input1_value}`);
-    const btn_color = btn.style.backgroundColor;
-
-    function mousemove(event){
+    function mousemove(event) {
         const target_element = event.target;
+        const input1_value = target_element.getAttribute('title');
+        const helpObj = COLOR.get(`${input1_value}`);
 
         if (EraserMouseDown) {
             if (target_element.style.backgroundColor === '') {
@@ -128,8 +123,8 @@ function eraser_event(btn_id, input1_value) { //타임테이블의 지우개 함
             }
         }
     }
-  
-     
+
+
     function mousedown(event) {
         timetable.addEventListener('mousemove', mousemove);
         EraserMouseDown=true;
@@ -140,8 +135,7 @@ function eraser_event(btn_id, input1_value) { //타임테이블의 지우개 함
         EraserMouseDown=false;
     }
 
-    timetable.addEventListener('mousedown', mousedown,{once: true});
-    timetable.addEventListener('mouseup', mouseup,{once: true});
+    timetable.addEventListener('mouseup', mouseup, { once: true });
+    timetable.addEventListener('mousedown', mousedown, { once: true });
 
 }
-

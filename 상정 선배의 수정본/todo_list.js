@@ -9,7 +9,8 @@ const COLOR_ARRAY =
         "#0984e3", "#6c5ce7", "#ff7675", "#b2bec3",
         "#fdcb6e", "#e17055", "#00cec9", "#fd79a8",
         "#636e72", "#B33771", "#BDC581", "#58B19F",
-        "#e67e22", "#f1c40f", "#cf6a87"];
+        "#e67e22", "#f1c40f", "#cf6a87"
+    ];
 
 
 export function init() {

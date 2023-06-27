@@ -1,4 +1,4 @@
-import { Make_palette } from './timetable.js';
+import { Make_palette } from './new_timetable.js';
 
 let NUMBER = 1;
 export const COLOR = new Map();
@@ -12,7 +12,7 @@ const COLOR_ARRAY =
         "#e67e22", "#f1c40f", "#cf6a87"
     ];
 
-export function init() {
+function init() {
     let myArray = Array.from({ length: 19 }, (_, index) => index + 1);
     myArray.forEach(function (item) {
         push_plus();
@@ -110,6 +110,7 @@ function blur(event) {
     const COLOR_dex = input.id - 1;
 
     const isColorExist = [...COLOR.values()].some(value => value.color === COLOR_ARRAY[COLOR_dex]);
+    //상정 선배의 말대로, 이것도 복사본이 있는 배열이 항상 존재해야 하므로 딱히 좋은 방법인지는 모르겠음. 직접적으로 접근할 수 있는 방법 찾아보기
 
     if (input1_value.length < 1) return;
     if (!COLOR.has(input1_value) && (!isColorExist)) {

@@ -1,6 +1,5 @@
 import { todo } from './todo_list.js';
 
-
 let todo_sub = [];
 
 function init() {

@@ -1,4 +1,4 @@
-import { Make_palette } from './new_timetable.js';
+import { Make_palette } from './timetable.js';
 
 let NUMBER = 1;
 export const COLOR = new Map();
@@ -17,9 +17,53 @@ function init() {
     myArray.forEach(function (item) {
         push_plus();
     });
+    init2();
+}
+
+function init2(){
+    let myArray = Array.from({ length: 24 }, (_, index) => index + 1);
+    myArray.forEach(function (item) {
+        timetable(item);
+        set_time(item);
+    });
 }
 
 window.addEventListener('load', init());
+
+function timetable(item) { //타임테이블 생성
+    const timetable_container = document.getElementById('timetable');
+    const timetable_div = document.createElement('div');
+
+    let myArray = Array.from({ length: 7 }, (_, index) => index + 1);
+    myArray.forEach(function (inner_item) {
+        const input = document.createElement('input');
+        if (inner_item === 1) {
+            input.setAttribute('id', `timetable_time${item}`);
+            input.classList.add('class_time');
+        }
+        input.type = "text";
+        input.value = "";
+        input.classList.add('timetable_input');
+        timetable_div.appendChild(input);
+    });
+
+    if (item === 1) {
+        timetable_div.setAttribute('id', 'eraser_div');
+    }
+    timetable_container.appendChild(timetable_div);
+}
+
+function set_time(item) { //타임테이블의 시간 표시
+    const timetable_time = document.getElementById(`timetable_time${item}`);
+
+    if (item <= 7) timetable_time.value = item + 5;
+    else if (item > 7 && item <= 19) timetable_time.value = item - 7;
+    else timetable_time.value = item - 19;
+
+    timetable_time.style.border = "none";
+    timetable_time.style.textAlign = "center";
+    timetable_time.disabled = true;
+}
 
 function push_plus() {
     if (NUMBER > 23) {

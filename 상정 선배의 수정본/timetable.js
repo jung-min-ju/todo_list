@@ -7,6 +7,7 @@ function init() {
     document.getElementById('remove_btn').addEventListener('click', function(){
         delete_drag();
         
+        
     });
 }
 

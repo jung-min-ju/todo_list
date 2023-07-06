@@ -6,6 +6,7 @@ function init() {
     timetable_render();
     document.getElementById('remove_btn').addEventListener('click', function(){
         delete_drag();
+        
     });
 }
 
